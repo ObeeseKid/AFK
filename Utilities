@@ -1,0 +1,39 @@
+wait(3)
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local WindowFocusReleasedFunction = function()
+	RunService:Set3dRenderingEnabled(false)
+	setfpscap(10)
+	return
+end
+
+local WindowFocusedFunction = function()
+	RunService:Set3dRenderingEnabled(true)
+	setfpscap(360)
+	return
+end
+
+local Initialize = function()
+	UserInputService.WindowFocusReleased:Connect(WindowFocusReleasedFunction)
+	UserInputService.WindowFocused:Connect(WindowFocusedFunction)
+	return
+end
+Initialize()
+
+wait(1)
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+
+wait(1.2)
+game.StarterGui:SetCore("SendNotification", {
+Title = "Obese AFK System"; -- the title (ofc)
+Text = "All AFK utilities have been successfully executed!"; -- what the text says (ofc)
+Duration = 5; -- how long the notification should in secounds
+})
